@@ -9,19 +9,50 @@
     <meta name="description" content="Portfolio for practice">
     <meta name="author" content="Kim Tae Heon">
     <!-- favicon 적용 
-        href 끝에 ? 붙여야 사용 가능 하지만 이유는 못 찾음-->
+        href 끝에 ? 붙여야 사용 가능 but 이유는 못 찾음-->
     <link rel="icon" type="image/png" href="/imgs/favicon.png?">
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/7943045324.js" crossorigin="anonymous"></script>
     <!-- Open Sans -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
+    <!-- defer
+        1. Html파일 parsing되는 동안 JS파일을 동시에 다운받음 다만 Html의 Parsing이 완료된 다음 JS파일 실행-->
+    <!-- async 
+        1. Bolean type의 속성 값이므로 선언만으로 True로 설정
+        2. Html파일 pursuing되는 동안 JS파일을 동시에 다운받음 다만 JS의 다운이 완료되면 JS파일 실행 후 나머지 HTML 파일 parsing을 계속
+        3. 여러가지 JS 불러올 때 다운이 끝나는 순서로 실행되기 때문에 순서에 의존적인 JS들이라면 사용하기 힘듬 -->
 </head>
 
 <body>
-
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="navbar__logo">
+            <img src="imgs/favicon.png" alt="logo">
+            <a href="#">Kim Tae Heon</a>
+        </div>
+        <ul class="navbar__menu">
+            <li class="navbar__menu__item">Home</li>
+            <li class="navbar__menu__item">About</li>
+            <li class="navbar__menu__item">Menu</li>
+            <li class="navbar__menu__item">Skills</li>
+            <li class="navbar__menu__item">My Work</li>
+            <li class="navbar__menu__item">Contact</li>
+        </ul>
+    </nav>
+    <!-- About -->
+    <section id="about"></section>
+    <!-- Skills -->
+    <section id="skills"></section>
+    <!-- Work -->
+    <section id="work"></section>
+    <!-- Testimonials -->
+    <section id="testimonials"></section>
+    <!-- Contact -->
+    <section id="contact"></section>
 </body>
 
 </html>
