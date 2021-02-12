@@ -25,6 +25,9 @@
   --weight-bold: 700;
   --weight-semi-bold: 600;
   --weight-regular: 400;
+
+  /* Size */
+  --border-radius: 4px;
 }
 
 /* Universal tags */
@@ -32,6 +35,21 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  cursor: default;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-white);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
 /* Typography = 패딩과 텍스트에 대해 먼저 스타일링 테스트 */
 h1 {
   font-size: var(--font-large);
@@ -59,4 +77,42 @@ p {
   font-weight: var(--weight-regular);
   color: var(--color-black);
   margin: 4px 0;
+}
+
+/* Navbar */
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-pink);
+  align-items: center;
+  color: var(--color-white);
+  padding: 16px;
+}
+
+.navbar__logo {
+  font-size: var(--font-medium);
+  display: flex;
+  align-items: center;
+}
+
+.navbar__menu {
+  display: flex;
+  font-weight: var(--weight-semi-bold);
+}
+
+.navbar__menu__item {
+  padding: 8px 12px;
+  margin: 0 4px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+}
+
+.navbar__menu__item.active {
+  border: 1px solid var(--color-white);
+  /* border-radius: var(--border-radius); */
+}
+
+.navbar__menu__item:hover {
+  background-color: var(--color-dark-pink);
+  /* border-radius: var(--border-radius); */
 }
