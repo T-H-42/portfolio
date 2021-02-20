@@ -129,6 +129,15 @@ p {
   /* border-radius: var(--size-border-radius); */
 }
 
+.navber__toggle-btn {
+  position: absolute;
+  font-size: var(--font-regular);
+  color: var(--color-white);
+  right: 32px;
+  top: 24px;
+  display: none;
+}
+
 /* Home */
 #home {
   background: url("imgs/home-background.png") center/cover no-repeat;
@@ -464,4 +473,28 @@ p {
 .contact__links i:hover {
   transform: scale(1.2);
   color: var(--color-yellow);
+}
+
+/* For below 768px screen width */
+/* 미디어 쿼리 안에는 차이점만 넣어야 함 */
+@media screen and (max-width: 768px) {
+  .navbar__logo {
+    font-size: var(--font-regular);
+  }
+
+  .navber__toggle-btn {
+    display: block;
+  }
+
+  #navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar__menu {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    display: none;
+  }
 }
