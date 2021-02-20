@@ -161,7 +161,7 @@ p {
 }
 
 /* Section common */
-section {
+.section {
   padding: 50px;
   text-align: center;
 }
