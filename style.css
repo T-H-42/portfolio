@@ -92,12 +92,20 @@ p {
 
 /* Navbar */
 #navbar {
+  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: var(--color-pink);
+  background-color: transparent;
   align-items: center;
   color: var(--color-white);
   padding: 16px;
+  transition: all var(--animatino-duration) ease-in-out;
+}
+
+#navbar.navbar--dark {
+  background-color: var(--color-pink);
+  padding: 8px;
 }
 
 .navbar__logo {
@@ -143,6 +151,7 @@ p {
   background: url("imgs/home-background.png") center/cover no-repeat;
   text-align: center;
   padding: 40px;
+  padding-top: 120px;
 }
 
 .home__avatar {
