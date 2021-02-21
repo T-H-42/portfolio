@@ -13,6 +13,7 @@ document.addEventListener('scroll',() => {
     // navar--dark는 BEM의 Modifier 사용
 })
 
+// Handle scroll when tapping on navbar menu
 const navbar_menu = document.querySelector('.navbar__menu');
 
 navbar_menu.addEventListener('click',(e) => {
@@ -32,5 +33,12 @@ navbar_menu.addEventListener('click',(e) => {
     const navbar_height_small = navbar.getBoundingClientRect().height;
     const scroll_to = document.querySelector(link).offsetTop;
     window.scrollTo({top : scroll_to - navbar_height_small, behavior : 'smooth'});
+})
 
+// Handle click on 'Contact Me' button on home
+const home_contact_btn = document.querySelector('.home__contact');
+
+home_contact_btn.addEventListener('click', () => {
+    const contact = document.querySelector('#contact');
+    contact.scrollIntoView({behavior:'smooth'});
 })
