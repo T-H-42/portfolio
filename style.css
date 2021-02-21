@@ -100,6 +100,7 @@ p {
   align-items: center;
   color: var(--color-white);
   padding: 16px;
+  z-index: 1;
   transition: all var(--animatino-duration) ease-in-out;
 }
 
