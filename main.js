@@ -42,3 +42,14 @@ home_contact_btn.addEventListener('click', () => {
     const contact = document.querySelector('#contact');
     contact.scrollIntoView({behavior:'smooth'});
 })
+
+// Make home slowly fade to transparent as the window scroll down
+const home_container = document.querySelector('.home__container');
+const home_container_height = home_container.getBoundingClientRect().height;
+
+document.addEventListener('scroll', () => {
+    // console.log(1 - window.scrollY / home_container_height);
+    // 알고리즘이나 공식을 할 때는 실제 간단한 숫자를 대입해서 증명하는것이 중요
+
+    home_container.style.opacity = 1-window.scrollY / (home_container_height)
+})
