@@ -39,8 +39,7 @@ navbar_menu.addEventListener('click',(e) => {
 const home_contact_btn = document.querySelector('.home__contact');
 
 home_contact_btn.addEventListener('click', () => {
-    const contact = document.querySelector('#contact');
-    contact.scrollIntoView({behavior:'smooth'});
+    scroll_into_view("#contact");
 })
 
 // Make home slowly fade to transparent as the window scroll down
@@ -53,3 +52,25 @@ document.addEventListener('scroll', () => {
 
     home_container.style.opacity = 1-window.scrollY / (home_container_height)
 })
+
+// Show "arrow up" button when scrolling down
+const arrow_up = document.querySelector('.arrow-up');
+
+document.addEventListener('scroll', () =>{
+    if(window.scrollY > home_container_height / 2) {
+        arrow_up.classList.add('active');
+    } else {
+        arrow_up.classList.remove('active');
+    }
+    })
+
+    // Handle click on the "arrow up" button
+arrow_up.addEventListener('click', () => {
+    scroll_into_view("#home");
+})
+
+function scroll_into_view(selector) {
+    const scroll_to = document.querySelector(selector);
+    
+    scroll_to.scrollIntoView({behavior : 'smooth'});
+}

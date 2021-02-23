@@ -414,7 +414,6 @@ p {
 }
 
 /* Testimonials */
-
 #testimonials {
   background-color: var(--color-light-white);
 }
@@ -487,6 +486,29 @@ p {
 .contact__links i:hover {
   transform: scale(1.2);
   color: var(--color-yellow);
+}
+
+.arrow-up {
+  position: fixed;
+  height: 50px;
+  width: 50px;
+  background-color: var(--color-dark-pink);
+  color: var(--color-white);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  right: 20px;
+  bottom: 20px;
+  font-size: var(--font-medium);
+  opacity: 0;
+  transition: all var(--animatino-duration) ease-in;
+  /* prevent click */
+  pointer-events: none;
+}
+
+.arrow-up.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* For below 768px screen width */
