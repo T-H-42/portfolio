@@ -58,9 +58,9 @@ const arrow_up = document.querySelector('.arrow-up');
 
 document.addEventListener('scroll', () =>{
     if(window.scrollY > home_container_height / 2) {
-        arrow_up.classList.add('active');
+        arrow_up.classList.add('visible');
     } else {
-        arrow_up.classList.remove('active');
+        arrow_up.classList.remove('visible');
     }
     })
 
@@ -68,6 +68,39 @@ document.addEventListener('scroll', () =>{
 arrow_up.addEventListener('click', () => {
     scroll_into_view("#home");
 })
+
+// Handle click on the proejct category button 
+// Weekness part!!!
+const work_btn_container = document.querySelector('.work__categories');
+const projects_container = document.querySelector('.work__projects');
+const projects = document.querySelectorAll('.project');
+
+work_btn_container.addEventListener('click', (e) => {
+    const target = e.target;
+    const filter = target.dataset.filter || target.parentNode.dataset.filter;
+
+    if(filter === null){
+        return;
+    }
+
+    projects_container.classList.add('anim--out');
+
+    projects.forEach((project) => {
+        const type = project.dataset.type;
+
+        if(filter === '*' || filter === type) {
+            project.classList.remove('invisible');
+        } else {
+            project.classList.add('invisible');
+        }
+    }) 
+
+    setTimeout(() => {
+        projects_container.classList.remove('anim--out');
+    },300)
+})
+
+
 
 function scroll_into_view(selector) {
     const scroll_to = document.querySelector(selector);

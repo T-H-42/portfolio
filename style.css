@@ -344,10 +344,16 @@ p {
   transition: all var(--animatino-duration) ease-in;
 }
 
-.work__proejects {
+.work__projects {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  transition: all var(--animatino-duration) ease-out;
+}
+
+.work__projects.anim--out {
+  opacity: 0;
+  transform: scale(0.9) translateY(40px);
 }
 
 .project {
@@ -360,6 +366,10 @@ p {
   height: 250px;
   margin: 2px;
   background-color: var(--color-light-white);
+}
+
+.project.invisible {
+  display: none;
 }
 
 .project__img {
@@ -506,7 +516,7 @@ p {
   pointer-events: none;
 }
 
-.arrow-up.active {
+.arrow-up.visible {
   opacity: 1;
   pointer-events: auto;
 }
