@@ -15,6 +15,7 @@ document.addEventListener('scroll',() => {
 
 // Handle scroll when tapping on navbar menu
 const navbar_menu = document.querySelector('.navbar__menu');
+const navbar_menu_btn = document.querySelectorAll('.navbar__menu__item');
 
 navbar_menu.addEventListener('click',(e) => {
     const dataset = e.target.dataset;
@@ -76,13 +77,18 @@ const projects_container = document.querySelector('.work__projects');
 const projects = document.querySelectorAll('.project');
 
 work_btn_container.addEventListener('click', (e) => {
-    const target = e.target;
-    const filter = target.dataset.filter || target.parentNode.dataset.filter;
+    const target = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentNode;
+    // BUTTON 대문자로 해야 인식됨
+    const filter = target.dataset.filter;
 
     if(filter === null){
         return;
     }
 
+    // Remove selection from the previous item and select the new one
+    const active = document.querySelector('.category__btn.selected');
+    active.classList.remove('selected');
+    target.classList.add('selected');
     projects_container.classList.add('anim--out');
 
     projects.forEach((project) => {
