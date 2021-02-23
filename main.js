@@ -9,8 +9,21 @@ const navbar_height_large = navbar.getBoundingClientRect().height;
 // scrollHeight = scroll 없이 요소의 콘텐츠를 모두 나타낼 때 필요한 최소 높이 값. 반올림
 
 document.addEventListener('scroll',() => {
-    (window.scrollY > navbar_height_large) ? navbar.classList.add('navbar--dark') : navbar.classList.remove('navbar--dark');
+    if(window.scrollY > navbar_height_large) {
+        navbar_toggle_btn.classList.add('navbar--dark');
+        navbar.classList.add('navbar--dark');
+    } else {
+        navbar_toggle_btn.classList.remove('navbar--dark');
+        navbar.classList.remove('navbar--dark');
+    } 
     // navar--dark는 BEM의 Modifier 사용
+})
+
+// Handle toggle button for small screen
+const navbar_toggle_btn = document.querySelector('.navbar__toggle-btn');
+
+navbar_toggle_btn.addEventListener('click', () => {
+    navbar_menu.classList.toggle('open');
 })
 
 // Handle scroll when tapping on navbar menu
@@ -25,6 +38,7 @@ navbar_menu.addEventListener('click',(e) => {
         return;
     }
 
+    navbar_menu.classList.remove('open')
     // Method 1
     // const scroll_to = document.querySelector(link);
     // scroll_to.scrollIntoView({behavior : 'smooth'});
@@ -79,6 +93,7 @@ const projects = document.querySelectorAll('.project');
 work_btn_container.addEventListener('click', (e) => {
     const target = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentNode;
     // BUTTON 대문자로 해야 인식됨
+    // nodeName 중요!
     const filter = target.dataset.filter;
 
     if(filter === null){
@@ -105,7 +120,6 @@ work_btn_container.addEventListener('click', (e) => {
         projects_container.classList.remove('anim--out');
     },300)
 })
-
 
 
 function scroll_into_view(selector) {
