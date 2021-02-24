@@ -101,7 +101,7 @@ p {
   background-color: transparent;
   align-items: center;
   color: var(--color-white);
-  padding: 16px;
+  padding: 8px 16px;
   z-index: 1;
   transition: all var(--animatino-duration) ease-in-out;
 }
@@ -136,6 +136,11 @@ p {
   border-color: var(--color-white);
   background-color: var(--color-dark-pink);
   /* border-radius: var(--size-border-radius); */
+}
+
+.navbar__menu__item.selected {
+  border-color: var(--color-white);
+  background-color: var(--color-dark-pink);
 }
 
 .navbar__toggle-btn {

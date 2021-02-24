@@ -1,15 +1,17 @@
 'use strict';
+// 이벤트에 등록하는 콜백함수는 최대한 간단하고 무겁지 않게 
+// => 이벤트는 중복 실행이 안되기 때문
 
 // Make Navbar transparent when it is on top
 const navbar = document.querySelector('#navbar');
-const navbar_height_large = navbar.getBoundingClientRect().height;
+const navbar_height = navbar.getBoundingClientRect().height;
 // offsetHeight = 원래 지정된 사이즈 (height), transform 무시
 // getBoundingClientRect() = 사용자가 보는 사이즈, transform 적용
 // clientHeight = css상 높이 + css상 내부 여백 - 수평 스크롤바의 높이(존재하는 경우에만)
 // scrollHeight = scroll 없이 요소의 콘텐츠를 모두 나타낼 때 필요한 최소 높이 값. 반올림
 
 document.addEventListener('scroll',() => {
-    if(window.scrollY > navbar_height_large) {
+    if(window.scrollY > navbar_height) {
         navbar_toggle_btn.classList.add('navbar--dark');
         navbar.classList.add('navbar--dark');
     } else {
@@ -30,6 +32,7 @@ navbar_toggle_btn.addEventListener('click', () => {
 const navbar_menu = document.querySelector('.navbar__menu');
 const navbar_menu_btn = document.querySelectorAll('.navbar__menu__item');
 
+
 navbar_menu.addEventListener('click',(e) => {
     const dataset = e.target.dataset;
     const link = dataset.link;
@@ -38,16 +41,15 @@ navbar_menu.addEventListener('click',(e) => {
         return;
     }
 
-    navbar_menu.classList.remove('open')
+    navbar_menu.classList.remove('open');
+
     // Method 1
     // const scroll_to = document.querySelector(link);
     // scroll_to.scrollIntoView({behavior : 'smooth'});
 
     // Mehtod 2
-    // navbar height가 바뀌니 새로운 값을 받아와야함
-    const navbar_height_small = navbar.getBoundingClientRect().height;
     const scroll_to = document.querySelector(link).offsetTop;
-    window.scrollTo({top : scroll_to - navbar_height_small, behavior : 'smooth'});
+    window.scrollTo({top : scroll_to - navbar_height, behavior : 'smooth'});
 })
 
 // Handle click on 'Contact Me' button on home
@@ -121,9 +123,49 @@ work_btn_container.addEventListener('click', (e) => {
     },300)
 })
 
+// 
 
 function scroll_into_view(selector) {
     const scroll_to = document.querySelector(selector);
     
     scroll_to.scrollIntoView({behavior : 'smooth'});
 }
+
+// 1. 모든 섹션 요소들과 모든 아이템들을 가지고 온다
+// 2/ intersectionObserver를 이용해서 모든 섹션들을 관찰한다
+// 3. 보여지는 섹션에 해당하는 메뉴 아이템을 활성화 시킨다
+
+const section_id = [
+    '#home',
+    '#about',
+    '#skills',
+    '#work',
+    '#testimonials',
+    '#contact',
+];
+
+// map API는 forEach와 다르게 배열로 다시 만들어줌\
+// const sections = section_id.map(function(id){
+//     return document.querySelector(id);
+//     return 필수
+// })
+const sections = section_id.map(id => document.querySelector(id));
+const nav_items = section_id.map(id => document.querySelector(`[data-link="${id}"]`));
+
+const observer_options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+}
+
+const observer_callback = (entries, observer) => {
+    entries.forEach((entry) => {
+        console.log(entry.target)
+    })
+}
+
+const observer = new IntersectionObserver(observer_callback, observer_options);
+
+sections.forEach((section) => {
+    observer.observe(section);
+})
