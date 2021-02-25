@@ -32,10 +32,10 @@ navbar_toggle_btn.addEventListener('click', () => {
 const navbar_menu = document.querySelector('.navbar__menu');
 const navbar_menu_btn = document.querySelectorAll('.navbar__menu__item');
 
-
 navbar_menu.addEventListener('click',(e) => {
-    const dataset = e.target.dataset;
-    const link = dataset.link;
+    const target = e.target;
+    const link = target.dataset.link;
+
 
     if(link === null) {
         return;
@@ -50,6 +50,7 @@ navbar_menu.addEventListener('click',(e) => {
     // Mehtod 2
     const scroll_to = document.querySelector(link).offsetTop;
     window.scrollTo({top : scroll_to - navbar_height, behavior : 'smooth'});
+    select_nav_item(target);
 })
 
 // Handle click on 'Contact Me' button on home
@@ -127,10 +128,12 @@ work_btn_container.addEventListener('click', (e) => {
 
 function scroll_into_view(selector) {
     const scroll_to = document.querySelector(selector);
-    
+
     scroll_to.scrollIntoView({behavior : 'smooth'});
+    select_nav_item(nav_items[section_id.indexOf(selector)]);
 }
 
+// 매우 중요
 // 1. 모든 섹션 요소들과 모든 아이템들을 가지고 온다
 // 2/ intersectionObserver를 이용해서 모든 섹션들을 관찰한다
 // 3. 보여지는 섹션에 해당하는 메뉴 아이템을 활성화 시킨다
@@ -147,8 +150,9 @@ const section_id = [
 // map API는 forEach와 다르게 배열로 다시 만들어줌\
 // const sections = section_id.map(function(id){
 //     return document.querySelector(id);
-//     return 필수
+//     return 필수!!
 // })
+
 const sections = section_id.map(id => document.querySelector(id));
 const nav_items = section_id.map(id => document.querySelector(`[data-link="${id}"]`));
 
@@ -158,9 +162,27 @@ const observer_options = {
     threshold: 0.5
 }
 
+let selected_nav_index = 0;
+let selected_nav_item = nav_items[0]; 
+
+function select_nav_item(selected) {
+    selected_nav_item.classList.remove('selected');
+    selected_nav_item = selected;
+    selected_nav_item.classList.add('selected');
+}
+
+
 const observer_callback = (entries, observer) => {
     entries.forEach((entry) => {
-        console.log(entry.target)
+        if(!entry.isIntersecting && entry.intersectionRatio > 0) {
+            const index = section_id.indexOf(`#${entry.target.id}`)
+            
+            if(entry.boundingClientRect.y < 0) {
+                selected_nav_index = index + 1;
+            } else {
+                selected_nav_index = index - 1;
+            }
+        }
     })
 }
 
@@ -168,4 +190,17 @@ const observer = new IntersectionObserver(observer_callback, observer_options);
 
 sections.forEach((section) => {
     observer.observe(section);
+})
+
+window.addEventListener('wheel', () => {
+    if(window.scrollY === 0) {
+        selected_nav_index = 0;
+    } else if (
+        // window.scrollY + window.innerHeight의 값이 정확하게 일치하지 않는 경우 존재
+        window.scrollY + window.innerHeight >= 
+        document.body.clientHeight
+        ) {
+            selected_nav_index = nav_items.length - 1;
+    }
+    select_nav_item(nav_items[selected_nav_index]);
 })
