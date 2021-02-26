@@ -1,4 +1,10 @@
 'use strict';
+
+// Ipone smooth scroll
+import smoothscroll from 'smoothscroll-polyfill';
+smoothscroll.polyfill();
+window.__forceSmoothScrollPolyfill__ = true;
+
 // 이벤트에 등록하는 콜백함수는 최대한 간단하고 무겁지 않게 
 // => 이벤트는 중복 실행이 안되기 때문
 
@@ -49,6 +55,7 @@ navbar_menu.addEventListener('click',(e) => {
 
     // Mehtod 2
     const scroll_to = document.querySelector(link).offsetTop;
+    // navbar_height = navbar.getBoundingClientRect().height;
     window.scrollTo({top : scroll_to - navbar_height, behavior : 'smooth'});
     select_nav_item(target);
 })
@@ -61,6 +68,8 @@ home_contact_btn.addEventListener('click', () => {
 })
 
 // Make home slowly fade to transparent as the window scroll down
+
+
 const home_container = document.querySelector('.home__container');
 const home_container_height = home_container.getBoundingClientRect().height;
 
@@ -164,6 +173,7 @@ const observer_options = {
 
 let selected_nav_index = 0;
 let selected_nav_item = nav_items[0]; 
+// let selected_sections = sections[0];
 
 function select_nav_item(selected) {
     selected_nav_item.classList.remove('selected');
@@ -171,14 +181,23 @@ function select_nav_item(selected) {
     selected_nav_item.classList.add('selected');
 }
 
+// function select_section(selected) {
+//     console.log(selected)
+//     selected_sections.classList.remove('test');
+//     selected_sections = selected
+//     selected_sections.classList.add('test');
+// }
 
 const observer_callback = (entries, observer) => {
     entries.forEach((entry) => {
+        console.log(entry.target)
+        console.log(!entry.isIntersecting)
         if(!entry.isIntersecting && entry.intersectionRatio > 0) {
-            const index = section_id.indexOf(`#${entry.target.id}`)
-            
+            const index = section_id.indexOf(`#${entry.target.id}`);
+
             if(entry.boundingClientRect.y < 0) {
                 selected_nav_index = index + 1;
+                console.log('down')
             } else {
                 selected_nav_index = index - 1;
             }
@@ -202,5 +221,7 @@ window.addEventListener('wheel', () => {
         ) {
             selected_nav_index = nav_items.length - 1;
     }
+
     select_nav_item(nav_items[selected_nav_index]);
+    // select_section(sections[selected_nav_index]);
 })

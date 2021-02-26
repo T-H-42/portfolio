@@ -190,6 +190,12 @@ p {
 .section {
   padding: 50px;
   text-align: center;
+  opacity: 1;
+  transition: all var(--animatino-duration) ease-out;
+}
+
+.section.test {
+  opacity: 1;
 }
 
 .section__container {
@@ -550,7 +556,7 @@ p {
     display: block;
     font-size: var(--font-medium);
     right: 32px;
-    top: 25px;
+    top: 15px;
   }
 
   #navbar {
@@ -560,7 +566,7 @@ p {
   }
 
   #navbar.navbar--dark {
-    padding: 16px;
+    padding: 8px 16px;
   }
 
   .navbar__menu {
