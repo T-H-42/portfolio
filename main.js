@@ -1,10 +1,5 @@
 'use strict';
 
-// Ipone smooth scroll
-import smoothscroll from 'smoothscroll-polyfill';
-smoothscroll.polyfill();
-window.__forceSmoothScrollPolyfill__ = true;
-
 // 이벤트에 등록하는 콜백함수는 최대한 간단하고 무겁지 않게 
 // => 이벤트는 중복 실행이 안되기 때문
 
