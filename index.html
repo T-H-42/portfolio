@@ -16,8 +16,10 @@
     <!-- Open Sans -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animation.css">
     <script src="main.js" defer></script>
     <!-- Ipone smooth scroll -->
     <script src="smoothscroll.js" defer></script>
@@ -55,7 +57,12 @@
     <section id="home">
         <div class="home__container">
             <img src="imgs/profile.png" alt="Profile Photo" class="home__avatar">
-            <h1 class="home__title">Hello, <br />I am Program Artist</h1>
+            <div class="home__title-bg">
+                <h1 class="home__title">
+                    Hello, </br>
+                    I am Program Artist
+                </h1>
+            </div>
             <h2 class="home__description">A Programmers who want to make life easier</h2>
             <button class="home__contact">Contact Me</button>
         </div>
@@ -115,42 +122,42 @@
                 <div class="skillset__left">
                     <h3 class="skillset__title">Skills</h3>
                     <div class="skill">
-                        <div class="skill__description">
-                            <span>HTML</span>
-                            <span>85%</span>
-                        </div>
                         <div class="skill__bar">
-                            <div class="skill__value" style="width : 85%;"></div>
+                            <div class="skill__description">
+                                <span>HTML</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill__value" style="width : 85%;" data-percent="85%"></div>
                         </div>
                     </div>
 
                     <div class="skill">
-                        <div class="skill__description">
-                            <span>CSS</span>
-                            <span>80%</span>
-                        </div>
                         <div class="skill__bar">
-                            <div class="skill__value" style="width : 80%;"></div>
+                            <div class="skill__description">
+                                <span>CSS</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill__value" style="width : 80%;" data-percent="80%"></div>
                         </div>
                     </div>
 
                     <div class="skill">
-                        <div class="skill__description">
-                            <span>JAVASCRIPT</span>
-                            <span>85%</span>
-                        </div>
                         <div class="skill__bar">
-                            <div class="skill__value" style="width : 85%;"></div>
+                            <div class="skill__description">
+                                <span>JAVASCRIPT</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill__value" style="width : 85%;" data-percent="85%"></div>
                         </div>
                     </div>
 
                     <div class="skill">
-                        <div class="skill__description">
-                            <span>NODE JS</span>
-                            <span>60%</span>
-                        </div>
                         <div class="skill__bar">
-                            <div class="skill__value" style="width : 60%;"></div>
+                            <div class="skill__description">
+                                <span>NODE JS</span>
+                                <span>60%</span>
+                            </div>
+                            <div class="skill__value" style="width : 60%;" data-percent="60%"></div>
                         </div>
                     </div>
                 </div>
@@ -174,7 +181,7 @@
 
     <!-- Work -->
     <section id="work" class="section section__container">
-        <h1>My Wokr</h1>
+        <h1>My Work</h1>
         <h3>Projects</h3>
         <div class="work__categories">
             <button class="category__btn selected" data-filter="*">

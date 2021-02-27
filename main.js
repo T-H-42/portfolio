@@ -5,7 +5,7 @@
 
 // Make Navbar transparent when it is on top
 const navbar = document.querySelector('#navbar');
-const navbar_height = navbar.getBoundingClientRect().height;
+let navbar_height = navbar.getBoundingClientRect().height;
 // offsetHeight = 원래 지정된 사이즈 (height), transform 무시
 // getBoundingClientRect() = 사용자가 보는 사이즈, transform 적용
 // clientHeight = css상 높이 + css상 내부 여백 - 수평 스크롤바의 높이(존재하는 경우에만)
@@ -50,7 +50,7 @@ navbar_menu.addEventListener('click',(e) => {
 
     // Mehtod 2
     const scroll_to = document.querySelector(link).offsetTop;
-    // navbar_height = navbar.getBoundingClientRect().height;
+    navbar_height = navbar.getBoundingClientRect().height;
     window.scrollTo({top : scroll_to - navbar_height, behavior : 'smooth'});
     select_nav_item(target);
 })
@@ -185,14 +185,11 @@ function select_nav_item(selected) {
 
 const observer_callback = (entries, observer) => {
     entries.forEach((entry) => {
-        console.log(entry.target)
-        console.log(!entry.isIntersecting)
         if(!entry.isIntersecting && entry.intersectionRatio > 0) {
             const index = section_id.indexOf(`#${entry.target.id}`);
 
             if(entry.boundingClientRect.y < 0) {
                 selected_nav_index = index + 1;
-                console.log('down')
             } else {
                 selected_nav_index = index - 1;
             }
@@ -219,4 +216,18 @@ window.addEventListener('wheel', () => {
 
     select_nav_item(nav_items[selected_nav_index]);
     // select_section(sections[selected_nav_index]);
+})
+
+// Show skill bar animation
+const skills = document.querySelector('#skills');
+const skills_height = skills.offsetTop ;
+const skill_values = skills.querySelectorAll('.skill__value');
+
+window.addEventListener('scroll', () => {
+    if(window.scrollY > offsetTop + navbar_height ) {
+        skill_values.forEach((value) => {
+            const percent = value.dataset.percent;
+            
+        })
+    }
 })
