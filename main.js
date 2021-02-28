@@ -128,8 +128,6 @@ work_btn_container.addEventListener('click', (e) => {
     },300)
 })
 
-// 
-
 function scroll_into_view(selector) {
     const scroll_to = document.querySelector(selector);
 
@@ -187,7 +185,7 @@ const observer_callback = (entries, observer) => {
     entries.forEach((entry) => {
         if(!entry.isIntersecting && entry.intersectionRatio > 0) {
             const index = section_id.indexOf(`#${entry.target.id}`);
-
+            
             if(entry.boundingClientRect.y < 0) {
                 selected_nav_index = index + 1;
             } else {
@@ -223,11 +221,54 @@ const skills = document.querySelector('#skills');
 const skills_height = skills.offsetTop ;
 const skill_values = skills.querySelectorAll('.skill__value');
 
-window.addEventListener('scroll', () => {
-    if(window.scrollY > offsetTop + navbar_height ) {
-        skill_values.forEach((value) => {
-            const percent = value.dataset.percent;
-            
-        })
-    }
+// window.addEventListener('scroll', () => {
+//     if(window.scrollY > skills_height - navbar_height) {
+//         console.log('skill',skills_height)
+//         console.log('navbar', navbar_height)
+//         console.log(skills_height + navbar_height)
+//         skill_values.forEach((value) => {
+//             const percent = value.dataset.percent;
+//             value.style.width = percent;
+//         })
+//     } else {
+//         skill_values.forEach((value) => {
+//             value.style.width = 0;
+//         })
+//     }
+// })
+
+const skill_observer_option = {
+    root: null,
+    rootMargin: `0px`,
+    threshold: 0.5
+}
+
+const skill_observer_callback = (entries, observer) => {
+    entries.forEach((entry) => {
+        const target = entry.target;
+        
+        // method 1 (use Keyframes)
+        // if(entry.isIntersecting) {
+        //     target.classList.add('anime');
+        // } else {
+        //     target.classList.remove('anime');
+        //     console.log('out')
+        // }
+        
+        // method 2 (use Dataset)
+        if(entry.isIntersecting) {
+            const percent = target.dataset.percent;
+
+            target.style.width = percent;
+        } else {
+            // width 0으로 하면 isInterscting의 true와 false가 반복됨 (이유는 모름)
+            target.style.width = '15%';
+        }
+    });
+}
+
+const skill_observer = new IntersectionObserver(skill_observer_callback, skill_observer_option);
+
+skill_values.forEach((value) => {
+    skill_observer.observe(value);
 })
