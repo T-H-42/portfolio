@@ -218,30 +218,7 @@ window.addEventListener('wheel', () => {
 
 // Show skill bar animation
 const skills = document.querySelector('#skills');
-const skills_height = skills.offsetTop ;
 const skill_values = skills.querySelectorAll('.skill__value');
-
-// window.addEventListener('scroll', () => {
-//     if(window.scrollY > skills_height - navbar_height) {
-//         console.log('skill',skills_height)
-//         console.log('navbar', navbar_height)
-//         console.log(skills_height + navbar_height)
-//         skill_values.forEach((value) => {
-//             const percent = value.dataset.percent;
-//             value.style.width = percent;
-//         })
-//     } else {
-//         skill_values.forEach((value) => {
-//             value.style.width = 0;
-//         })
-//     }
-// })
-
-const skill_observer_option = {
-    root: null,
-    rootMargin: `0px`,
-    threshold: 0.5
-}
 
 const skill_observer_callback = (entries, observer) => {
     entries.forEach((entry) => {
@@ -267,8 +244,48 @@ const skill_observer_callback = (entries, observer) => {
     });
 }
 
-const skill_observer = new IntersectionObserver(skill_observer_callback, skill_observer_option);
+const skill_observer = new IntersectionObserver(skill_observer_callback, observer_options);
 
 skill_values.forEach((value) => {
     skill_observer.observe(value);
 })
+
+// home icon bounce animation
+const about = document.querySelector('#about');
+const icons = about.querySelectorAll('.major__icon');
+
+const icon_observer_callback = (entry, observer) => {
+    if(entry[0].isIntersecting) {
+        icons.forEach((icon) => {
+            icon.classList.add('bounce');
+        })
+    } else {
+        icons.forEach((icon) => {
+            icon.classList.remove('bounce');
+        })        
+    }
+};
+
+const icon_observer = new IntersectionObserver(icon_observer_callback, observer_options);
+
+icon_observer.observe(about);
+
+// testimonial move animation
+const testimonials = document.querySelector('#testimonials');
+const testimonial = testimonials.querySelectorAll('.testimonial');
+
+const testimonial_observer_callback = (entry, observer) => {
+    if(entry[0].isIntersecting) {
+        testimonial.forEach((testimonial) => {
+            testimonial.classList.add('move')
+        })
+    } else {
+        testimonial.forEach((testimonial) => {
+            testimonial.classList.remove('move');
+        })        
+    }
+};
+
+const testimonial_observer = new IntersectionObserver(testimonial_observer_callback, observer_options);
+
+testimonial_observer.observe(testimonials);

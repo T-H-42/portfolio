@@ -14,6 +14,8 @@
   --color-orange: #feb546;
   --color-dark-orange: #feb446a4;
   --color-black: #000000;
+  --color-beige: #d7d3c6;
+  --color-light-beige: #e2ddcf;
 
   /* Font size */
   --font-large: 48px;
@@ -44,6 +46,7 @@ body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
   cursor: default;
+  background-color: var(--color-beige);
 }
 
 a {
@@ -63,6 +66,27 @@ button {
   cursor: pointer;
   /* iphone은 padding 0 <= probably because "safe area" */
   padding: 0;
+}
+
+#about,
+#skills,
+#testimonials,
+#work {
+  position: relative;
+}
+
+#about::after,
+#skills::after,
+#testimonials::after,
+#work::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 /* Typography = 패딩과 텍스트에 대해 먼저 스타일링 테스트 */
@@ -116,13 +140,24 @@ h1,
   align-items: center;
   color: var(--color-white);
   padding: 8px 16px;
-  z-index: 1;
+  z-index: 2;
   transition: all var(--animation-duration) ease-in-out;
+  border-bottom: 1px solid transparent;
+}
+
+#navbar a {
+  font-weight: var(--weight-bold);
 }
 
 #navbar.navbar--dark {
-  background-color: var(--color-pink);
+  background-color: var(--color-light-beige);
   padding: 8px;
+  border-color: var(--color-black);
+  color: var(--color-black);
+}
+
+#navbar.navbar--dark a {
+  color: var(--color-black);
 }
 
 .navbar__logo {
@@ -139,6 +174,7 @@ h1,
 .navbar__menu__item {
   padding: 8px 12px;
   margin: 0 4px;
+  font-size: var(--font-regular);
   cursor: pointer;
   /* 중복을 피할 수 있다 */
   border-radius: var(--size-border-radius);
@@ -218,6 +254,10 @@ h1,
 }
 
 /* About */
+#about::after {
+  border-top: 30px solid var(--color-beige);
+}
+
 .about__majors {
   display: flex;
   justify-content: space-between;
@@ -227,22 +267,36 @@ h1,
 .major__icon {
   width: 170px;
   height: 170px;
-  border: 1px solid var(--color-blue);
+  border: 3px solid var(--color-blue);
   border-radius: 50%;
   font-size: 70px;
   line-height: 170px;
-  color: var(--color-blue);
+  color: var(--color-dark-grey);
   margin-bottom: 16px;
   margin: auto;
+  opacity: 0;
+}
+
+.major__icon.bounce {
+  opacity: 1;
+  animation: bounce 6s linear;
 }
 
 .major__icon i {
   transition: all 0.3s ease;
 }
 
-.major__icon:hover i {
+.major:hover .major__icon {
+  border-color: var(--color-dark-grey);
+}
+
+.major:hover i {
   transform: rotate(360deg) scale(1.2);
-  color: var(--color-dark-grey);
+  color: var(--color-blue);
+}
+
+.major:hover .major__title {
+  color: var(--color-blue);
 }
 
 .major__title {
@@ -273,7 +327,11 @@ h1,
 
 /* Skills */
 #skills {
-  background-color: var(--color-yellow);
+  background-color: var(--color-light-beige);
+}
+
+#skills::after {
+  border-top: 30px solid var(--color-light-beige);
 }
 
 .skillset {
@@ -351,6 +409,10 @@ h1,
 }
 
 /* Work */
+#work::after {
+  border-top: 30px solid var(--color-beige);
+}
+
 .work__categories {
   margin: 40px;
 }
@@ -395,6 +457,8 @@ h1,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 850px;
+  margin: auto;
   transition: all var(--animation-duration) ease-out;
 }
 
@@ -474,7 +538,7 @@ h1,
 
 /* Testimonials */
 #testimonials {
-  background-color: var(--color-light-white);
+  background-color: var(--color-light-beige);
 }
 
 .testimonials {
@@ -485,6 +549,11 @@ h1,
   display: flex;
   align-items: center;
   margin: 32px 0;
+  opacity: 0;
+}
+
+.testimonial.move {
+  opacity: 1;
 }
 
 .testimonial:nth-of-type(even) {
@@ -499,6 +568,16 @@ h1,
 .testimonial:nth-of-type(odd) .testimonial__avatar {
   /* odd = 홀수 */
   margin-right: 20px;
+}
+
+.testimonial.move:nth-of-type(even) .testimonial__speach-bubble,
+.testimonial.move:nth-of-type(odd) .testimonial__avatar {
+  animation: move-left 1s ease-out;
+}
+
+.testimonial.move:nth-of-type(odd) .testimonial__speach-bubble,
+.testimonial.move:nth-of-type(even) .testimonial__avatar {
+  animation: move-right 1s ease-out;
 }
 
 .testimonial__avatar {
@@ -523,13 +602,13 @@ h1,
 /* Contact */
 
 #contact {
-  background-color: pink;
+  background-color: var(--color-white);
 }
 
 .contact__title,
 .contact__email,
 .contact__rights {
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
 .contact__title {
@@ -630,6 +709,10 @@ h1,
     margin-bottom: 30px;
   }
 
+  .major__icon.bounce {
+    animation: none;
+  }
+
   .skillset {
     flex-direction: column;
   }
@@ -663,6 +746,16 @@ h1,
   .testimonial:nth-of-type(even) .testimonial__avatar {
     margin: 0;
     margin-bottom: 8px;
+  }
+
+  .testimonial.move:nth-of-type(even) .testimonial__speach-bubble,
+  .testimonial.move:nth-of-type(odd) .testimonial__avatar {
+    animation: bounce 6s ease-out;
+  }
+
+  .testimonial.move:nth-of-type(odd) .testimonial__speach-bubble,
+  .testimonial.move:nth-of-type(even) .testimonial__avatar {
+    animation: bounce 6s ease-out;
   }
 
   .testimonial__speach-bubble {
