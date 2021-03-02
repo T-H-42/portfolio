@@ -52,11 +52,11 @@
 
 @keyframes move-left {
   0% {
-    transform: translateX(-50%);
+    transform: translateX(-8%);
     opacity: 0;
   }
   25% {
-    transform: translateX(-50%);
+    transform: translateX(-8%);
     animation-timing-function: cubic-bezier(1, -1.92, 0.95, 0.89);
     opacity: 1;
   }
@@ -68,11 +68,11 @@
 
 @keyframes move-right {
   0% {
-    transform: translateX(50%);
+    transform: translateX(8%);
     opacity: 0;
   }
   25% {
-    transform: translateX(50%);
+    transform: translateX(8%);
     opacity: 1;
     animation-timing-function: cubic-bezier(1, -1.92, 0.95, 0.89);
   }

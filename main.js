@@ -75,7 +75,7 @@ document.addEventListener('scroll', () => {
     home_container.style.opacity = 1-window.scrollY / (home_container_height)
 })
 
-// Show "arrow up" button when scrolling down
+// Show "arrow up", "dark mode" button when scrolling down
 const arrow_up = document.querySelector('.arrow-up');
 
 document.addEventListener('scroll', () =>{
@@ -89,6 +89,60 @@ document.addEventListener('scroll', () =>{
     // Handle click on the "arrow up" button
 arrow_up.addEventListener('click', () => {
     scroll_into_view("#home");
+})
+
+// Handle click on the "dark-mode" button
+const dark_mode = document.querySelector('.dark-mode');
+const light_mode = document.querySelector('.light-mode');
+const dark = 'dark';
+const light = 'light';
+const theme = 'theme';
+
+function show_mode_btn (theme) {
+    switch(theme) {
+        case light:
+        dark_mode.classList.add('visible');
+        light_mode.classList.remove('visible');
+        break;
+
+        case dark:
+        dark_mode.classList.remove('visible');
+        light_mode.classList.add('visible');
+        break;
+    }
+}
+
+function get_theme() {
+    const loaded_theme = localStorage.getItem(theme);
+    const window_theme = window.matchMedia(`(${theme}: ${dark})`).matches ? dark : theme;    
+
+    return loaded_theme ? loaded_theme : window_theme;
+} 
+
+window.addEventListener('load', () => {
+    if (get_theme() === dark) {
+        localStorage.setItem(theme, dark);
+
+        document.documentElement.setAttribute(theme,dark);
+        show_mode_btn(dark)
+    } else {
+        localStorage.setItem(theme, light);
+
+        document.documentElement.setAttribute(theme, light);
+        show_mode_btn(light)
+    }
+})
+
+dark_mode.addEventListener('click', () => {
+    document.documentElement.setAttribute(theme, dark);
+    localStorage.setItem(theme, dark);
+    show_mode_btn(dark);
+})
+
+light_mode.addEventListener('click', () => {
+    document.documentElement.setAttribute(theme, light);
+    localStorage.setItem(theme, light);
+    show_mode_btn(light);
 })
 
 // Handle click on the proejct category button 
@@ -149,7 +203,7 @@ const section_id = [
     '#contact',
 ];
 
-// map API는 forEach와 다르게 배열로 다시 만들어줌\
+// map API는 forEach와 다르게 배열로 다시 만들어줌
 // const sections = section_id.map(function(id){
 //     return document.querySelector(id);
 //     return 필수!!
@@ -166,20 +220,12 @@ const observer_options = {
 
 let selected_nav_index = 0;
 let selected_nav_item = nav_items[0]; 
-// let selected_sections = sections[0];
 
 function select_nav_item(selected) {
     selected_nav_item.classList.remove('selected');
     selected_nav_item = selected;
     selected_nav_item.classList.add('selected');
 }
-
-// function select_section(selected) {
-//     console.log(selected)
-//     selected_sections.classList.remove('test');
-//     selected_sections = selected
-//     selected_sections.classList.add('test');
-// }
 
 const observer_callback = (entries, observer) => {
     entries.forEach((entry) => {
@@ -213,7 +259,6 @@ window.addEventListener('wheel', () => {
     }
 
     select_nav_item(nav_items[selected_nav_index]);
-    // select_section(sections[selected_nav_index]);
 })
 
 // Show skill bar animation
